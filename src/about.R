@@ -1,27 +1,28 @@
 library(shiny)
 
 about_text <- p(
-  "This shiny app template has been developed by Wasin Pipattungsakul to standardise the layout of shiny apps",
+  "<Application Name> was developed by <responsible party/ies> under the Analytics for the Australian Grains",
+  "Industry (AAGI) project to support GRDC Project <project code>, <project title/brief ipsum lorem describing",
+  "the project and the App's usage in the project>. ",
   "developed under AAGI investments.",
   br(),
   "For queries, feedback, and bug reports: ",
   a(
-    "wasin.pipattungsakul@adelaide.edu.au",
-    href = "mailto:wasin.pipattungsakul@adelaide.edu.au?subject=AAGI Shiny Template Support"
+    "<responsible email>",
+    href = "mailto:<responsible email>?subject=<Application Name> Support"
   )
 )
 
 about_images <- fluidRow(
-  column(1),
-  column(3, img(src = "logo-AAGI.jpg", height = "55px")),
-  column(4, img(src = "logo-UA.jpg", height = "55px")),
-  column(3, img(src = "logo-BH.jpg", height = "55px", align = "middle")),
-  column(1),
+  class = "about-images",
+  column(2),
+  column(4, img(src = "logo-AAGI.jpg", height = "67px")),
+  column(4, img(src = "logo-uni.jpg", height = "55px")),
 )
 
 about_modal <- modalDialog(
-  div(about_text, about_images, width = "89%"),
-  title = "AAGI Shiny Template",
+  div(about_text, about_images),
+  title = "About",
   easyClose = TRUE,
   fade = FALSE,
 )

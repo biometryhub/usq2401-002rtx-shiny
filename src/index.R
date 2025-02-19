@@ -7,7 +7,7 @@ ui <- fluidPage(
   # title bar
   div(
     class = "title-bar",
-    h1("AAGI Shiny Template"),
+    h1("<Application Name>"),
     actionButton(
       class = "title-bar-button",
       "about",
@@ -19,9 +19,10 @@ ui <- fluidPage(
   # tabs
   tabsetPanel(
     type = "tabs",
-    tabPanel("Tab 1", "Content in tab 1"),
-    tabPanel("Tab 2", "Content in tab 2"),
-    tabPanel("Tab 3", "Content in tab 3")
+    # add tabs here
+    tabPanel("<Tab 1>", "<Content in tab 1>"),
+    tabPanel("<Tab 2>", "<Content in tab 2>"),
+    tabPanel("<Tab 3>", "<Content in tab 3>"),
   )
 )
 

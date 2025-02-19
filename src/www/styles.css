@@ -35,6 +35,7 @@ h1 {
 
 .about-images {
   display: flex;
+  align-items: center;
 }
 
 .dummy-title {
