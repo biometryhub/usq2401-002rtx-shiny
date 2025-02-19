@@ -55,10 +55,7 @@ h1 {
   color: grey;
 }
 
-.nav-tabs>li.active>a {
-  color: #96b418;
-}
-
+.nav-tabs>li.active>a,
 .nav-tabs>li.active>a:hover,
 .nav-tabs>li.active>a:focus {
   color: #96b418;
