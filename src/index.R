@@ -3,112 +3,42 @@ library(shiny)
 
 # Define UI
 ui <- fluidPage(
-  titlePanel("AAGI Shiny Template"),
-  # primary_theme_color = "#00808b",
-  # secondary_theme_color = "#96b418",
+  # external styles
+  includeCSS("./www/styles.css"),
 
-  # Include external CSS
-  includeCSS("../www/styles.css"),
-
-  # Material Side Navigation (for About and Help buttons)
-  # material_side_nav(
-  #   fixed = TRUE,
-  #   material_side_nav_tabs(),
-  #   # material_side_nav_button("about", "About"),
-  #   # material_side_nav_button("help", "Help")
-  # ),
-
-  sidebarLayout(
-
-    # Sidebar panel for inputs ----
-    NULL,
-    # sidebarPanel(
-    #
-    #   # Input: Select the random distribution type ----
-    #   radioButtons(
-    #     "dist", "Distribution type:",
-    #     c(
-    #       "Normal" = "norm",
-    #       "Uniform" = "unif",
-    #       "Log-normal" = "lnorm",
-    #       "Exponential" = "exp"
-    #     )
-    #   ),
-    #
-    #   # br() element to introduce extra vertical spacing ----
-    #   br(),
-    #
-    #   # Input: Slider for the number of observations to generate ----
-    #   sliderInput("n",
-    #     "Number of observations:",
-    #     value = 500,
-    #     min = 1,
-    #     max = 1000
-    #   )
-    # ),
-
-    # Main panel for displaying outputs ----
-    mainPanel(
-
-      # Output: Tabset w/ plot, summary, and table ----
-      tabsetPanel(
-        type = "tabs",
-        tabPanel("Plot", h1("plot")),
-        tabPanel("Summary", h1("summary")),
-        tabPanel("Table", h1("table"))
-      )
+  # title bar
+  div(
+    class = "title-bar",
+    h1("AAGI Shiny Template"),
+    actionButton(
+      class = "title-bar-button",
+      "about",
+      "About",
     )
   ),
-  # Material Tabs for content
-  # material_tabs(
-  #   tabs = c(
-  #     # displayed tab name = tab id
-  #     "Tab 1" = "tab1",
-  #     "Tab 2" = "tab2",
-  #     "Tab 3" = "tab3"
-  #   )
-  # ),
-  #
-  # # Content for each tab
-  # material_tab_content(
-  #   tab_id = "tab1",
-  #   h3("Content for Tab 1")
-  # ),
-  # material_tab_content(
-  #   tab_id = "tab2",
-  #   h3("Content for Tab 2")
-  # ),
-  # material_tab_content(
-  #   tab_id = "tab3",
-  #   h3("Content for Tab 3")
-  # ),
+  div(class = "dummy-title"),
 
-  # # Modals for About and Help
-  # material_modal(
-  #   id = "about_modal",
-  #   title = "About",
-  #   "This is a shiny app with navigation.",
-  #   easyClose = TRUE
-  # ),
-  # material_modal(
-  #   id = "help_modal",
-  #   title = "Help",
-  #   "Here's how to use the app...",
-  #   easyClose = TRUE
-  # )
+  # tabs
+  tabsetPanel(
+    type = "tabs",
+    tabPanel("Tab 1", "Content in tab 1"),
+    tabPanel("Tab 2", "Content in tab 2"),
+    tabPanel("Tab 3", "Content in tab 3")
+  )
 )
 
 # Define server logic
 server <- function(input, output, session) {
-  # Show modal for About
-  observeEvent(input$about, {
-    show_modal("about_modal")
-  })
+  # source here for hot reloading: https://github.com/de-data-lab/voucher-eligibility/issues/178
+  source("./about.R", local = TRUE)
 
-  # Show modal for Help
-  observeEvent(input$help, {
-    show_modal("help_modal")
-  })
+  # Show modal for About
+  observe({
+    showModal(
+      about_modal
+    )
+  }) |>
+    bindEvent(input$about)
 }
 
 # export app

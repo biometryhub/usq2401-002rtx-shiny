@@ -1,9 +1,0 @@
-/* Style for greying out the area around the modal */
-nav {
-  height: 55px;
-}
-
-.modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.5) !important;
-}
-

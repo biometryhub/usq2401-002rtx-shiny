@@ -1,0 +1,64 @@
+/* Style for greying out the area around the modal */
+
+/* primary_theme_color = "#00808b", */
+/* secondary_theme_color = "#96b418", */
+
+html,
+body {
+  background: #f5f5f5;
+}
+
+
+h1 {
+  font-size: 1.5em;
+}
+
+.action-button {
+  background: none;
+  height: 34px;
+}
+
+/* title */
+.title-bar {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  color: #00808b;
+  height: 55px;
+  width: calc(100% - 30px);
+}
+
+.title-bar-button {
+  margin-bottom: 5px;
+}
+
+.about-images {
+  display: flex;
+}
+
+.dummy-title {
+  margin-top: 55px;
+}
+
+/* nav bar */
+.tabbable {
+  background: #ffffff;
+}
+
+.nav-tabs {
+  background: #f5f5f5;
+}
+
+.nav-tabs>li>a {
+  color: grey;
+}
+
+.nav-tabs>li.active>a {
+  color: #96b418;
+}
+
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+  color: #96b418;
+}
