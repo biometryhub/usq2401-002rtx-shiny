@@ -1,5 +1,6 @@
 library(shiny)
 
+# TODO: replace all <texts> and remove '<' and '>'
 about_text <- p(
   "<Application Name> was developed by <responsible party/ies> under the Analytics for the Australian Grains",
   "Industry (AAGI) project to support GRDC Project <project code>, <project title/brief ipsum lorem describing",
