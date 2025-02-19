@@ -1,5 +1,9 @@
 library(shiny)
 
+source("./tab1.R")
+source("./tab2.R")
+source("./kmean_cluster.R")
+
 ui <- fluidPage(
   # external styles
   includeCSS("./www/styles.css"),
@@ -20,9 +24,9 @@ ui <- fluidPage(
   tabsetPanel(
     type = "tabs",
     # add tabs here
-    tabPanel("<Tab 1>", "<Content in tab 1>"),
-    tabPanel("<Tab 2>", "<Content in tab 2>"),
-    tabPanel("<Tab 3>", "<Content in tab 3>"),
+    tab1,
+    tab2,
+    kmean_cluster_tab,
   )
 )
 
@@ -37,6 +41,9 @@ server <- function(input, output, session) {
     )
   }) |>
     bindEvent(input$about)
+
+  # tab io
+  kmean_cluster_server(input, output, session)
 }
 
 # export app
