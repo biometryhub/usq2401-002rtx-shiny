@@ -1,7 +1,5 @@
 library(shiny)
-# library(shinymaterial)
 
-# Define UI
 ui <- fluidPage(
   # external styles
   includeCSS("./www/styles.css"),
@@ -27,12 +25,11 @@ ui <- fluidPage(
   )
 )
 
-# Define server logic
 server <- function(input, output, session) {
   # source here for hot reloading: https://github.com/de-data-lab/voucher-eligibility/issues/178
   source("./about.R", local = TRUE)
 
-  # Show modal for About
+  # show about modal
   observe({
     showModal(
       about_modal
