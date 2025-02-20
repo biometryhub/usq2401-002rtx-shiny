@@ -3,6 +3,8 @@
 This Shiny app template was created to standardize the layout of shiny apps developed to support projects under
 Analytics for the Australian Grains Industry (AAGI).
 
+![Example][example]
+
 ## Usage
 
 ### Structure
@@ -14,17 +16,17 @@ shiny-template
   ├╴www
   │ ├╴logo-AAGI.jpg
   │ ├╴styles.css
-  │ ┊ ...
+  │ ┆ ...
   ├╴about.R
   ├╴index.R
   ├╴tab1.R
   ├╴tab2.R
-  ┊ …
+  ┆ ...
 ```
 
 - [`app.R`][app] is the entry point where you can update your port.
 - [`src`][src] contains all the scripts for ui and server.
-- [`src/www`][src/www] contains style sheets and static images.
+- [`src/www`][www] contains style sheets and static images.
 
 ### Customization
 
@@ -52,3 +54,4 @@ both ui and server components.
 [kmean]: ./src/kmean_cluster.R
 [src]: ./src
 [www]: ./src/www
+[example]: ./assets/example.png
