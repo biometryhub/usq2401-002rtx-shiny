@@ -5,9 +5,15 @@ Analytics for the Australian Grains Industry (AAGI).
 
 ![Example][example]
 
-## Usage
+<!-- vim-markdown-toc GFM -->
 
-### Structure
+* [Structure](#structure)
+* [Customization](#customization)
+* [Usage](#usage)
+
+<!-- vim-markdown-toc -->
+
+## Structure
 
 ```
 shiny-template
@@ -28,7 +34,7 @@ shiny-template
 - [`src`][src] contains all the scripts for ui and server.
 - [`src/www`][www] contains style sheets and static images.
 
-### Customization
+## Customization
 
 **Application Details**
 
@@ -40,7 +46,7 @@ in [`src/index.R`][index] and [`src/about.R`][about].
 New tabs should be added under [`src`][src] following the example of [`src/kmean_cluster.R`][kmean] which has
 both ui and server components.
 
-### Running the App
+## Usage
 
 ```sh
 ./app.R
