@@ -4,7 +4,7 @@ library(shiny)
 about_text <- p(
   "<Application Name> was developed by <responsible party/ies> under the Analytics for the Australian Grains",
   "Industry (AAGI) project to support GRDC Project <project code>, <project title/brief ipsum lorem describing",
-  "the project and the App's usage in the project>. ",
+  "the project and the App's usage in the project>.",
   "developed under AAGI investments.",
   br(),
   "For queries, feedback, and bug reports: ",
