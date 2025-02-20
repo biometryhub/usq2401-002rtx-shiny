@@ -14,12 +14,12 @@ shiny-template
   ├╴www
   │ ├╴logo-AAGI.jpg
   │ ├╴styles.css
-  │ ┊
+  │ ┊ ...
   ├╴about.R
   ├╴index.R
   ├╴tab1.R
   ├╴tab2.R
-  ┊
+  ┊ …
 ```
 
 - [`app.R`][app] is the entry point where you can update your port.
