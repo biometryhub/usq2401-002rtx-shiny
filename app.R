@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 options(shiny.autoreload = TRUE)
 
 shiny::runApp(
