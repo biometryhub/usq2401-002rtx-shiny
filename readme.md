@@ -5,6 +5,7 @@ Analytics for the Australian Grains Industry (AAGI).
 
 ![Example][example]
 
+Table of Contents
 <!-- vim-markdown-toc GFM -->
 
 * [Structure](#structure)
@@ -47,6 +48,14 @@ New tabs should be added under [`src`][src] following the example of [`src/kmean
 both ui and server components.
 
 ## Usage
+
+Install dependencies,
+
+```r
+install.packages("shiny")
+```
+
+Run the app,
 
 ```sh
 ./app.R
