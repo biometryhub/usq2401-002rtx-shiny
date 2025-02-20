@@ -51,8 +51,8 @@ both ui and server components.
 
 Install dependencies,
 
-```r
-install.packages("shiny")
+```sh
+R -e 'install.packages("shiny")'
 ```
 
 Run the app,
