@@ -11,6 +11,7 @@ Table of Contents
 * [Structure](#structure)
 * [Customization](#customization)
 * [Usage](#usage)
+* [Feedback](#feedback)
 
 <!-- vim-markdown-toc -->
 
@@ -61,6 +62,13 @@ Run the app,
 ./app.R
 ```
 
+## Feedback
+
+For queries, feedback, and bug reports:
+
+- Open a [GitHub issue][github-issue].
+- Email [wasin.pipattungsakul@adelaide.edu.au][email].
+
 <!--internal-->
 
 [app]: ./app.R
@@ -70,3 +78,8 @@ Run the app,
 [src]: ./src
 [www]: ./src/www
 [example]: ./assets/example.png
+
+<!--external-->
+
+[github-issue]: https://github.com/AAGI-AUS/shiny-template/issues/new
+[email]: mailto:wasin.pipattungsakul@adelaide.edu.au?subject=Shiny%20Template%20Support
