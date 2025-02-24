@@ -1,11 +1,11 @@
 # Shiny Template
 
-This Shiny app template was created to standardize the layout of shiny apps developed to support projects under
+This Shiny app template was created to standardize the layout of Shiny apps developed to support projects under
 Analytics for the Australian Grains Industry (AAGI).
 
 ![Example][example]
 
-Table of Contents
+## Table of Contents
 <!-- vim-markdown-toc GFM -->
 
 * [Structure](#structure)
