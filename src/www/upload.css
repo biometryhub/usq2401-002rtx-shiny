@@ -1,0 +1,24 @@
+.upload-container {
+  display: flex;
+  background: white;
+  padding: 13px;
+  margin-bottom: 8px;
+}
+
+.upload {
+  max-width: 233px;
+  margin-right: 10px;
+}
+
+.table-container {
+  width: auto;
+  max-width: calc(100% - 233px - 10px);
+  /* max-height: 233px; */
+  font-size: 12px;
+  overflow: auto;
+}
+
+.table-container table.dataTable td,
+.table-container table.dataTable th {
+  padding: 3px 5px;
+}

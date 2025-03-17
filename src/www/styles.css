@@ -60,3 +60,7 @@ h1 {
 .nav-tabs>li.active>a:focus {
   color: #96b418;
 }
+
+.tab-content {
+  padding: 13px;
+}

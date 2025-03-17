@@ -1,7 +1,8 @@
 library(shiny)
 
-source("./tab1.R")
+source("./upload.R")
 source("./tab2.R")
+source("./heat_map.R")
 source("./kmean_cluster.R")
 
 ui <- fluidPage(
@@ -11,7 +12,7 @@ ui <- fluidPage(
   # title bar
   div(
     class = "title-bar",
-    h1("<Application Name>"),
+    h1("USQ2401-002RTX"),
     actionButton(
       class = "title-bar-button",
       "about",
@@ -19,13 +20,15 @@ ui <- fluidPage(
     )
   ),
   div(class = "dummy-title"),
+  upload,
 
   # tabs
   tabsetPanel(
     type = "tabs",
     # add tabs here
-    tab1,
-    tab2,
+    # heat_map_tab,
+    # tab2,
+    heat_map_tab,
     kmean_cluster_tab,
   )
 )
@@ -44,6 +47,8 @@ server <- function(input, output, session) {
 
   # tab io
   kmean_cluster_server(input, output, session)
+  heat_map_server(input, output, session)
+  upload_server(input, output, session)
 }
 
 # export app
