@@ -18,10 +18,10 @@ Analytics for the Australian Grains Industry (AAGI).
 ## Structure
 
 ```
-shiny-template
+shiny-template/
 ├╴app.R
-└╴src
-  ├╴www
+└╴src/
+  ├╴www/
   │ ├╴logo-AAGI.jpg
   │ ├╴styles.css
   │ ┆ ...
@@ -33,8 +33,8 @@ shiny-template
 ```
 
 - [`app.R`][app] is the entry point where you can update your port.
-- [`src`][src] contains all the scripts for ui and server.
-- [`src/www`][www] contains style sheets and static images.
+- [`src/`][src] contains all the scripts for ui and server.
+- [`src/www/`][www] contains style sheets and static images.
 
 ## Customization
 
@@ -45,7 +45,7 @@ in [`src/index.R`][index] and [`src/about.R`][about].
 
 **New Tabs**
 
-New tabs should be added under [`src`][src] following the example of [`src/kmean_cluster.R`][kmean] which has
+New tabs should be added under [`src/`][src] following the example of [`src/kmean_cluster.R`][kmean] which has
 both ui and server components.
 
 ## Usage
