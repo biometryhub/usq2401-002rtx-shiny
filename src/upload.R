@@ -1,4 +1,5 @@
 library(shiny)
+library(tidyverse)
 
 upload <- div(
   class = "heat-map-tab",
@@ -24,22 +25,23 @@ upload <- div(
 )
 
 upload_server <- function(input, output, session) {
-  df_sample <- reactive({
+  df_data <- reactive({
     file <- input$csv_file
     ext <- tools::file_ext(file$datapath)
 
     req(file)
     validate(need(ext == "csv", "Please upload a csv file"))
 
-    return(read.csv(file$datapath, header = input$header))
+    return(read_csv(file$datapath, col_names = input$header))
   })
 
   output$csv_data <- renderDataTable(
-    df_sample(),
+    df_data(),
     options = list(
+      lengthMenu = list(c(5, 10, 50, 100), c("5", "10", "50", "100")),
       pageLength = 5
     )
   )
 
-  output$df_sample <- reactive(df_sample())
+  return(df_data)
 }

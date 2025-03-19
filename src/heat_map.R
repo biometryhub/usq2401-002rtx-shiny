@@ -1,56 +1,87 @@
 library(shiny)
+library(ggplot2)
 
 .parameters <- setdiff(names(iris), "Species")
 
-heat_map_tab <- tabPanel("Heat Map", pageWithSidebar(
-  "",
+heat_map_tab <- tabPanel("Heat Map", fluidRow(
   sidebarPanel(
-    selectInput("xcol", "X Variable", .parameters),
-    selectInput("ycol", "Y Variable", .parameters, selected = .parameters[[2]]),
-    numericInput("clusters", "Cluster count", 3, min = 1, max = 9)
+    uiOutput("x_axis_options"),
+    uiOutput("y_axis_options"),
+    uiOutput("label_options"),
+    uiOutput("font_sizes"),
+    width = 3
   ),
+  column(1),
   mainPanel(
-    plotOutput("heat_map")
+    plotOutput("heat_map", height = "auto")
   )
 ))
 
-heat_map_server <- function(input, output, session) {
+acceptable_default <- list(
+  x = c("col", "column", "range", "x"),
+  y = c("row", "y")
+)
+
+heat_map_server <- function(input, output, session, df_data) {
   # Combine the selected variables into a new data frame
-  # observe({
-  #   x <- input$xcol
-  #
-  #   # Can use character(0) to remove all choices
-  #   if (is.null(x)) {
-  #     x <- character(0)
-  #   }
-  #
-  #   # Can also set the label and select items
-  #   updateSelectInput(session, "inSelect",
-  #     label = paste("Select input label", length(x)),
-  #     choices = output,
-  #     selected = tail(x, 1)
-  #   )
-  # })
+  heat_map_options <- reactive(names(df_data()))
+  default_option <- reactive({
+    options_ <- heat_map_options()
+    defaults <- list(x = options_[1], y = options_[1], label = options_[1])
+    found <- list(x = FALSE, y = FALSE, label = FALSE)
 
-  selected_data <- reactive({
-    iris[, c(input$xcol, input$ycol)]
+    for (option in options_) {
+      if (!found$x && tolower(option) %in% acceptable_default$x) {
+        found$x <- TRUE
+        defaults$x <- option
+        next
+      }
+
+      if (!found$y && tolower(option) %in% acceptable_default$y) {
+        found$y <- TRUE
+        defaults$y <- option
+        next
+      }
+
+      if (!found$label && class(df_data()[[option]]) != "numeric") {
+        found$label <- TRUE
+        defaults$label <- option
+        next
+      }
+
+      if (found$x && found$y && found$label) {
+        break
+      }
+    }
+
+    return(defaults)
   })
 
-  clusters <- reactive({
-    kmeans(selected_data(), input$clusters)
+  output$x_axis_options <- renderUI(
+    selectInput("x_axis", "X axis", heat_map_options(), selected = default_option()$x)
+  )
+
+  output$y_axis_options <- renderUI(
+    selectInput("y_axis", "Y axis", heat_map_options(), selected = default_option()$y)
+  )
+
+  output$label_options <- renderUI(
+    selectInput("label", "Label", heat_map_options(), selected = default_option()$label)
+  )
+
+  output$font_sizes <- renderUI({
+    heat_map_options()
+    sliderInput("font_size", "Font size", min = 12, max = 20, value = 14)
   })
 
-  output$heat_map <- renderPlot({
-    palette(c(
-      "#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
-      "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"
-    ))
+  output$heat_map <- renderPlot(
+    {
+      df_data_ <- df_data()
 
-    par(mar = c(5.1, 4.1, 0, 1))
-    plot(selected_data(),
-      col = clusters()$cluster,
-      pch = 20, cex = 3
-    )
-    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
-  })
+      ggplot(df_data_, aes(x = .data[[input$x_axis]], y = .data[[input$y_axis]], fill = .data[[input$label]])) +
+        geom_tile() +
+        theme_gray(base_size = input$font_size)
+    },
+    height = 888
+  )
 }
