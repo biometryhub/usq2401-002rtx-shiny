@@ -2,26 +2,25 @@ library(shiny)
 library(tidyverse)
 
 upload <- div(
-  class = "heat-map-tab",
+  class = "upload-container",
   includeCSS("./www/upload.css"),
 
   # upload section
-  div(
-    class = "upload-container",
-    div(
-      class = "upload",
-      fileInput("csv_file", "Select or drop CSV file", accept = c(
-        "text/csv",
-        "text/comma-separated-values,text/plain",
-        ".csv"
-      )),
-      checkboxInput("header", "Header", TRUE)
-    ),
-    div(
-      class = "table-container",
-      dataTableOutput("csv_data")
-    )
+  # div(
+  div_box(
+    class = "upload",
+    fileInput("csv_file", "Select or drop CSV file", accept = c(
+      "text/csv",
+      "text/comma-separated-values,text/plain",
+      ".csv"
+    )),
+    checkboxInput("header", "Header", TRUE)
   ),
+  div(
+    class = "table-container",
+    dataTableOutput("csv_data")
+  )
+  # ),
 )
 
 upload_server <- function(input, output, session) {

@@ -1,5 +1,6 @@
 library(shiny)
 
+source("./components.R")
 source("./upload.R")
 source("./tab2.R")
 source("./heat_map.R")
