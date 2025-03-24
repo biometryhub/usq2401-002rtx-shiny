@@ -5,18 +5,3 @@
 .heat-map-variables {
   margin-bottom: 8px;
 }
-
-.save-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.save-container .shiny-input-radiogroup {
-  margin-bottom: 0;
-  margin-right: 8px;
-}
-
-.save-container .shiny-input-radiogroup .control-label {
-  display: none;
-}
