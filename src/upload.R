@@ -18,7 +18,7 @@ upload <- div(
   ),
   div(
     class = "table-container",
-    dataTableOutput("csv_data")
+    DT::DTOutput("csv_data")
   )
 )
 
@@ -37,7 +37,7 @@ upload_server <- function(input, output, session) {
     return(df)
   })
 
-  output$csv_data <- renderDataTable(
+  output$csv_data <- DT::renderDT(
     df_data(),
     options = list(
       lengthMenu = list(c(5, 10, 50, 100), c("5", "10", "50", "100")),

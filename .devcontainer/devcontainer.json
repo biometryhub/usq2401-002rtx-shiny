@@ -9,7 +9,8 @@
       "packages": [
         "shiny",
         "tidyverse",
-        "janitor"
+        "janitor",
+        "DT"
       ]
     }
   },
