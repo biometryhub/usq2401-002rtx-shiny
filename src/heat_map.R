@@ -1,4 +1,5 @@
 library(ggplot2)
+library(RColorBrewer)
 
 .parameters <- setdiff(names(iris), "Species")
 
@@ -68,18 +69,25 @@ heat_map_server <- function(input, output, session, df_data) {
     x_ticks <- min(df_data_[[input$x_axis]]):max(df_data_[[input$x_axis]])
     y_ticks <- min(df_data_[[input$y_axis]]):max(df_data_[[input$y_axis]])
 
-    return(ggplot(
-      df_data_,
-      aes(x = .data[[input$x_axis]], y = .data[[input$y_axis]], fill = factor(.data[[input$label]]))
-    ) +
+    if (class(df_data_[[input$label]]) != "numeric") {
+      fill_color <- scale_fill_brewer(palette = color_palettes[[input$colors]])
+    } else {
+      fill_color <- scale_fill_gradientn(colors = brewer.pal(Inf, color_palettes[[input$colors]]))
+    }
+
+    plot_ <- ggplot(df_data_, aes(!!sym(input$x_axis), !!sym(input$y_axis), fill = !!sym(input$label))) +
       geom_tile(color = border) +
       theme_minimal(base_size = input$font_size) +
-      scale_fill_brewer(palette = color_palettes[[input$colors]]) +
+      fill_color +
       scale_y_continuous(breaks = y_ticks, expand = c(0, 0)) +
       scale_x_continuous(breaks = x_ticks, expand = c(0, 0)) +
-      blank_grids +
-      guides(fill = guide_legend(title = input$label)) +
-      geom_text(aes(label = ifelse(input$toggle_label, .data[[input$label]], NA))))
+      blank_grids
+
+    if (input$toggle_label) {
+      plot_ <- plot_ + geom_text(aes(label = !!sym(input$label)))
+    }
+
+    return(plot_)
   })
 
   output$save <- downloadHandler(

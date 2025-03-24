@@ -1,4 +1,6 @@
 library(tidyverse)
+library(janitor)
+library(tools)
 
 upload <- div(
   class = "upload-container",
@@ -29,8 +31,12 @@ upload_server <- function(input, output, session) {
 
     req(file)
     validate(need(ext == "csv", "Please upload a csv file"))
+    df <- read_csv(file$datapath, col_names = input$header) |>
+      clean_names()
+    names(df) <- gsub("_", " ", names(df)) |> toTitleCase()
+    print(df)
 
-    return(read_csv(file$datapath, col_names = input$header))
+    return(df)
   })
 
   output$csv_data <- renderDataTable(
