@@ -2,9 +2,11 @@ library(shiny)
 
 source("./components.R")
 source("./upload.R")
-source("./tab2.R")
 source("./heat_map.R")
 source("./summary.R")
+source("./theme.R")
+
+initialize_theme()
 
 ui <- fluidPage(
   # external styles

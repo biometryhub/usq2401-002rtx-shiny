@@ -7,7 +7,6 @@ upload <- div(
   includeCSS("./www/upload.css"),
 
   # upload section
-  # div(
   div_box(
     class = "upload",
     fileInput("csv_file", "Select or drop CSV file", accept = c(
@@ -21,7 +20,6 @@ upload <- div(
     class = "table-container",
     dataTableOutput("csv_data")
   )
-  # ),
 )
 
 upload_server <- function(input, output, session) {
@@ -33,8 +31,8 @@ upload_server <- function(input, output, session) {
     validate(need(ext == "csv", "Please upload a csv file"))
     df <- read_csv(file$datapath, col_names = input$header) |>
       clean_names()
-    names(df) <- gsub("_", " ", names(df)) |> toTitleCase()
-    print(df)
+    names(df) <- gsub("_", " ", names(df)) |>
+      toTitleCase()
 
     return(df)
   })

@@ -28,14 +28,7 @@ color_palettes <- c(
   "Pink green" = "PiYG"
 )
 
-blank_grids <- theme(
-  panel.grid.major.x = element_blank(),
-  panel.grid.major.y = element_blank(),
-  panel.grid.minor.y = element_blank(),
-)
-
 heat_map_server <- function(input, output, session, df_data) {
-  # Combine the selected variables into a new data frame
   heat_map_options <- reactive(names(df_data()))
   default_options <- reactive(.get_default_options(heat_map_options(), df_data()))
 
@@ -51,14 +44,10 @@ heat_map_server <- function(input, output, session, df_data) {
       tags$b("Customise figure"),
       div_box(
         selectInput("colors", "Color palette", sort(names(color_palettes)), selected = "Spectral"),
-        sliderInput("font_size", "Font size", min = 12, max = 20, value = 14),
+        font_size_slider("heat_map_font_size"),
         checkboxInput("toggle_label", "Label"),
         checkboxInput("toggle_border", "Plot border"),
-        div(
-          class = "save-container",
-          radioButtons("extension", "", c("pdf", "png"), inline = TRUE),
-          downloadButton("save", "Save figure")
-        ),
+        save_figure_box("save_heat_map")
       ),
     )
   })
@@ -77,11 +66,11 @@ heat_map_server <- function(input, output, session, df_data) {
 
     plot_ <- ggplot(df_data_, aes(!!sym(input$x_axis), !!sym(input$y_axis), fill = !!sym(input$label))) +
       geom_tile(color = border) +
-      theme_minimal(base_size = input$font_size) +
+      default_theme$theme(base_size = input$heat_map_font_size) +
       fill_color +
-      scale_y_continuous(breaks = y_ticks, expand = c(0, 0)) +
-      scale_x_continuous(breaks = x_ticks, expand = c(0, 0)) +
-      blank_grids
+      default_theme$scale_x(breaks = x_ticks) +
+      default_theme$scale_y(breaks = y_ticks) +
+      default_theme$no_grids
 
     if (input$toggle_label) {
       plot_ <- plot_ + geom_text(aes(label = !!sym(input$label)))
@@ -90,9 +79,9 @@ heat_map_server <- function(input, output, session, df_data) {
     return(plot_)
   })
 
-  output$save <- downloadHandler(
+  output$save_heat_map <- downloadHandler(
     filename = function() {
-      paste0(input$x_axis, "_", input$y_axis, "_", input$label, ".", input$extension)
+      gsub(" ", "_", paste0(input$x_axis, "_", input$y_axis, "_", input$label, ".", input$extension))
     },
     content = function(file) {
       ggsave(file, plot = heat_map(), device = input$extension)
