@@ -3,9 +3,11 @@
   background: white;
   padding: 13px;
   margin-bottom: 8px;
+  width: 100%;
 }
 
 .upload {
+  height: 150px;
   max-width: 233px;
   margin-right: 10px;
 }
