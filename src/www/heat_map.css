@@ -2,6 +2,10 @@
   display: flex;
 }
 
+.heat-map-variables {
+  margin-bottom: 8px;
+}
+
 .save-container {
   display: flex;
   justify-content: flex-end;
