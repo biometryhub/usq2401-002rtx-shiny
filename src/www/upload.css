@@ -7,15 +7,13 @@
 }
 
 .upload {
-  height: 150px;
-  max-width: 233px;
+  max-width: 300px;
   margin-right: 10px;
 }
 
 .table-container {
   width: auto;
-  max-width: calc(100% - 233px - 10px);
-  /* max-height: 233px; */
+  max-width: calc(100% - 300px - 10px);
   font-size: 12px;
   overflow: auto;
 }
