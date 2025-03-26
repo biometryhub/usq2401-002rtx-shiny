@@ -4,6 +4,7 @@ library(ggplot2)
 
 summary_tab <- tabPanel("Summary", div(
   class = "summary-tab",
+  includeCSS("./www/summary.css"),
   uiOutput("summary_controller"),
   column(1),
   plotOutput("summary_plot", height = "auto")
@@ -12,7 +13,7 @@ summary_tab <- tabPanel("Summary", div(
 summary_server <- function(input, output, session, df_data) {
   default_bins <- reactive(min(30, round(1 + log2(nrow(df_data())))))
 
-  output$summary_controller <- renderUI({
+  output$summary_controller <- renderUI(
     div(
       tags$b("Customise figure"),
       div_box(
@@ -21,7 +22,7 @@ summary_server <- function(input, output, session, df_data) {
         save_figure_box("save_summary")
       ),
     )
-  })
+  )
 
   summary_plot <- reactive({
     df_long <- pivot_longer(df_data(), where(is.numeric), names_to = "variable", values_to = "value")

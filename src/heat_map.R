@@ -32,7 +32,7 @@ heat_map_server <- function(input, output, session, df_data) {
   heat_map_options <- reactive(names(df_data()))
   default_options <- reactive(.get_default_options(heat_map_options(), df_data()))
 
-  output$heat_map_controller <- renderUI({
+  output$heat_map_controller <- renderUI(
     div(
       tags$b("Select variables"),
       div_box(
@@ -45,26 +45,38 @@ heat_map_server <- function(input, output, session, df_data) {
       div_box(
         selectInput("colors", "Color palette", sort(names(color_palettes)), selected = "Spectral"),
         font_size_slider("heat_map_font_size"),
+        checkboxInput("toggle_na", "Show NA", value = TRUE),
         checkboxInput("toggle_label", "Label"),
         checkboxInput("toggle_border", "Plot border"),
         save_figure_box("save_heat_map")
       ),
     )
-  })
+  )
 
   heat_map <- reactive({
-    df_data_ <- df_data()
-    border <- ifelse(input$toggle_border, "grey31", NA)
-    x_ticks <- min(df_data_[[input$x_axis]]):max(df_data_[[input$x_axis]])
-    y_ticks <- min(df_data_[[input$y_axis]]):max(df_data_[[input$y_axis]])
+    df_data_ <- select(df_data(), !!sym(input$x_axis), !!sym(input$y_axis), !!sym(input$label)) |>
+      rename(
+        x = !!sym(input$x_axis),
+        y = !!sym(input$y_axis),
+        label = !!sym(input$label)
+      )
+    x_ticks <- min(df_data_$x):max(df_data_$x)
+    y_ticks <- min(df_data_$y):max(df_data_$y)
 
-    if (class(df_data_[[input$label]]) != "numeric") {
+    df_data_ <- tibble(x = rep(x_ticks, length(y_ticks)), y = rep(y_ticks, each = length(x_ticks))) |>
+      left_join(df_data_, by = c("x", "y"))
+
+    if (class(df_data_$label) != "numeric") {
       fill_color <- scale_fill_brewer(palette = color_palettes[[input$colors]])
     } else {
-      fill_color <- scale_fill_gradientn(colors = brewer.pal(Inf, color_palettes[[input$colors]]))
+      fill_color <- scale_fill_gradientn(
+        colors = brewer.pal(Inf, color_palettes[[input$colors]]),
+        na.value = "transparent"
+      )
     }
 
-    plot_ <- ggplot(df_data_, aes(!!sym(input$x_axis), !!sym(input$y_axis), fill = !!sym(input$label))) +
+    border <- ifelse(input$toggle_border, "grey31", NA)
+    plot_ <- ggplot(df_data_, aes(x, y, fill = label)) +
       geom_tile(color = border) +
       default_theme$theme(base_size = input$heat_map_font_size) +
       fill_color +
@@ -73,7 +85,11 @@ heat_map_server <- function(input, output, session, df_data) {
       default_theme$no_grids
 
     if (input$toggle_label) {
-      plot_ <- plot_ + geom_text(aes(label = !!sym(input$label)))
+      plot_ <- plot_ + geom_text(aes(label = label))
+    }
+
+    if (input$toggle_na) {
+      plot_ <- plot_ + geom_text(data = ~ filter(.x, is.na(label)), aes(label = "NA"), color = "grey")
     }
 
     return(plot_)
