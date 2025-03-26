@@ -13,12 +13,12 @@ ui <- fluidPage(
   includeCSS("./www/styles.css"),
 
   # TODO: update to app name, add favicon
-  tags$title("USQ2401-002RTX"),
+  tags$title("Field Trial Visualiser"),
 
   # title bar
   div(
     class = "title-bar",
-    h1("USQ2401-002RTX"),
+    h1("Field Trial Visualiser"),
     actionButton(
       class = "title-bar-button",
       "about",
