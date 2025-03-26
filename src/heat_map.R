@@ -1,5 +1,6 @@
 library(ggplot2)
 library(RColorBrewer)
+library(shiny)
 
 .parameters <- setdiff(names(iris), "Species")
 
@@ -82,7 +83,8 @@ heat_map_server <- function(input, output, session, df_data) {
       fill_color +
       default_theme$scale_x(breaks = x_ticks) +
       default_theme$scale_y(breaks = y_ticks) +
-      default_theme$no_grids
+      default_theme$no_grids +
+      labs(x = input$x_axis, y = input$y_axis, fill = input$label)
 
     if (input$toggle_label) {
       plot_ <- plot_ + geom_text(aes(label = label))
