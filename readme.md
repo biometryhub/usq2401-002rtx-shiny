@@ -33,7 +33,7 @@ Run the app,
 
 For queries, feedback, and bug reports:
 
-- Open a [GitHub issue][github-issue].
+<!-- - Open a [GitHub issue][github-issue]. -->
 - Email [wasin.pipattungsakul@adelaide.edu.au][email].
 
 <!--internal-->
