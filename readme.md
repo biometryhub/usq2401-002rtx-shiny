@@ -1,59 +1,26 @@
-# Shiny Template
+# Field Trial Visualiser
 
-This Shiny app template was created to standardize the layout of Shiny apps developed to support projects under
-Analytics for the Australian Grains Industry (AAGI).
+This application can visualise field trial data in a format of row and range across the field. It can also
+provide a summary of numerical variables as histograms.
 
-![Example][example]
+![Heat map example][heat-map-example]
+
+![Summary example][summary-example]
 
 ## Table of Contents
 <!-- vim-markdown-toc GFM -->
 
-* [Structure](#structure)
-* [Customization](#customization)
 * [Usage](#usage)
 * [Feedback](#feedback)
 
 <!-- vim-markdown-toc -->
-
-## Structure
-
-```
-shiny-template/
-├╴app.R
-└╴src/
-  ├╴www/
-  │ ├╴logo-AAGI.jpg
-  │ ├╴styles.css
-  │ ┆ ...
-  ├╴about.R
-  ├╴index.R
-  ├╴tab1.R
-  ├╴tab2.R
-  ┆ ...
-```
-
-- [`app.R`][app] is the entry point where you can update your port.
-- [`src/`][src] contains all the scripts for ui and server.
-- [`src/www/`][www] contains style sheets and static images.
-
-## Customization
-
-**Application Details**
-
-All texts enclosed in `<>` are to be replaced, including `<>`, with the appropriate values. These can be found
-in [`src/index.R`][index] and [`src/about.R`][about].
-
-**New Tabs**
-
-New tabs should be added under [`src/`][src] following the example of [`src/kmean_cluster.R`][kmean] which has
-both ui and server components.
 
 ## Usage
 
 Install dependencies,
 
 ```sh
-R -e 'install.packages("shiny")'
+R -e 'install.packages(c("shiny", "tidyverse", "janitor", "DT"))'
 ```
 
 Run the app,
@@ -66,20 +33,15 @@ Run the app,
 
 For queries, feedback, and bug reports:
 
-- Open a [GitHub issue][github-issue].
+<!-- - Open a [GitHub issue][github-issue]. -->
 - Email [wasin.pipattungsakul@adelaide.edu.au][email].
 
 <!--internal-->
 
-[app]: ./app.R
-[about]: ./src/about.R
-[index]: ./src/index.R
-[kmean]: ./src/kmean_cluster.R
-[src]: ./src
-[www]: ./src/www
-[example]: ./assets/example.png
+[heat-map-example]: ./assets/heat_map_example.png
+[summary-example]: ./assets/summary_example.png
 
 <!--external-->
 
-[github-issue]: https://github.com/AAGI-AUS/shiny-template/issues/new
-[email]: mailto:wasin.pipattungsakul@adelaide.edu.au?subject=Shiny%20Template%20Support
+[github-issue]: https://github.com/biometryhub/usq2401-002rtx-shiny/issues/new
+[email]: mailto:wasin.pipattungsakul@adelaide.edu.au?subject=Field%20Trial%20Visualiser%20Support
