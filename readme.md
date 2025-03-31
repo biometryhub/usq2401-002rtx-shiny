@@ -29,6 +29,8 @@ Run the app,
 ./app.R
 ```
 
+With the default port, the app will be available at [localhost:4848][localhost].
+
 ## Feedback
 
 For queries, feedback, and bug reports:
@@ -45,3 +47,4 @@ For queries, feedback, and bug reports:
 
 [github-issue]: https://github.com/biometryhub/usq2401-002rtx-shiny/issues/new
 [email]: mailto:wasin.pipattungsakul@adelaide.edu.au?subject=Field%20Trial%20Visualiser%20Support
+[localhost]: http://localhost:4848
