@@ -71,7 +71,7 @@ h1 {
   padding: 8px;
   background: #f5f5f5;
   border-radius: 3px;
-  width: auto;
+  /* width: auto; */
 }
 
 .save-container {
@@ -87,4 +87,8 @@ h1 {
 
 .save-container .shiny-input-radiogroup .control-label {
   display: none;
+}
+
+.label-container {
+  display: flex;
 }
