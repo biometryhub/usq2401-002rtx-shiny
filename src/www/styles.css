@@ -13,6 +13,12 @@ h1 {
   font-size: 1.5em;
 }
 
+a,
+a:hover {
+  color: inherit;
+  text-decoration: initial;
+}
+
 .action-button {
   background: none;
   height: 34px;
@@ -89,6 +95,6 @@ h1 {
   display: none;
 }
 
-.label-container {
-  display: flex;
+.form-text {
+  margin: 10px 0;
 }

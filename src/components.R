@@ -1,3 +1,5 @@
+library(shiny)
+
 div_box <- function(..., class = "") {
   div(
     class = paste("box", class, sep = " "),
@@ -15,4 +17,8 @@ save_figure_box <- function(id) {
     radioButtons("extension", "", c("pdf", "png"), inline = TRUE),
     downloadButton(id, "Save figure")
   )
+}
+
+form_text <- function(text) {
+  a(class = "form-text", text)
 }

@@ -2,14 +2,16 @@ library(ggplot2)
 library(RColorBrewer)
 library(shiny)
 
+source("./utils.R")
+
 .parameters <- setdiff(names(iris), "Species")
 
 heat_map_tab <- tabPanel("Heat Map", div(
   class = "heat-map-tab",
   includeCSS("./www/heat_map.css"),
-  uiOutput("heat_map_controller"),
+  column(2, uiOutput("heat_map_controller")),
   column(1),
-  plotOutput("heat_map", height = "auto")
+  column(9, plotOutput("heat_map", height = "auto"))
 ))
 
 color_palettes <- c(
@@ -47,15 +49,17 @@ heat_map_server <- function(input, output, session, df_data) {
       div_box(
         class = "heat-map-controller",
         selectInput("colors", "Color palette", sort(names(color_palettes)), selected = "Spectral"),
-        font_size_slider("heat_map_font_size"),
         checkboxInput("toggle_na", "Show NA", value = TRUE),
         # TODO: same line
-        # div(
-        #   class = "label-container",
-        checkboxInput("toggle_label", "Label"),
-        numericInput("label_angle", "Label angle", 0, min = 0, max = 360, step = 1),
-        # ),
+        tags$b("Label"),
+        div(
+          class = "label-container",
+          checkboxInput("toggle_label", "Toggle", width = "89px"),
+          form_text(right_blank("Angle:")),
+          numericInput("label_angle", NULL, 0, min = 0, max = 360, step = 1, width = "71px"),
+        ),
         checkboxInput("toggle_border", "Plot border"),
+        font_size_slider("heat_map_font_size"),
         save_figure_box("save_heat_map")
       ),
     )
