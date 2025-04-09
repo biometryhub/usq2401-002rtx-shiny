@@ -35,37 +35,11 @@ heat_map_server <- function(input, output, session, df_data) {
   heat_map_options <- reactive(names(df_data()))
   default_options <- reactive(.get_default_options(heat_map_options(), df_data()))
 
-  output$heat_map_controller <- renderUI(
-    div(
-      tags$b("Select variables"),
-      div_box(
-        class = "heat-map-controller",
-        selectInput("x_axis", "X axis", heat_map_options(), selected = default_options()$x),
-        selectInput("y_axis", "Y axis", heat_map_options(), selected = default_options()$y),
-        selectInput("fill", "Fill", heat_map_options(), selected = default_options()$fill),
-        selectInput("label", "Label", heat_map_options(), selected = default_options()$label),
-      ),
-      tags$b("Customise figure"),
-      div_box(
-        class = "heat-map-controller",
-        selectInput("colors", "Color palette", sort(names(color_palettes)), selected = "Spectral"),
-        checkboxInput("toggle_na", "Show NA", value = TRUE),
-        # TODO: same line
-        tags$b("Label"),
-        div(
-          class = "label-container",
-          checkboxInput("toggle_label", "Toggle", width = "89px"),
-          form_text(right_blank("Angle:")),
-          numericInput("label_angle", NULL, 0, min = 0, max = 360, step = 1, width = "71px"),
-        ),
-        checkboxInput("toggle_border", "Plot border"),
-        font_size_slider("heat_map_font_size"),
-        save_figure_box("save_heat_map")
-      ),
-    )
-  )
+  output$heat_map_controller <- heat_map_controller(default_options(), heat_map_options(), df_data())
 
   heat_map <- reactive({
+    force_categorical <- input$force_categorical
+
     df_data_ <- select(
       df_data(),
       !!sym(input$x_axis),
@@ -77,7 +51,13 @@ heat_map_server <- function(input, output, session, df_data) {
         x = !!sym(input$x_axis),
         y = !!sym(input$y_axis),
         label = !!sym(input$label),
-        fill = !!sym(input$fill)
+        fill = {
+          if (force_categorical) {
+            factor(!!sym(input$fill))
+          } else {
+            !!sym(input$fill)
+          }
+        }
       )
     x_ticks <- min(df_data_$x):max(df_data_$x)
     y_ticks <- min(df_data_$y):max(df_data_$y)
@@ -128,6 +108,55 @@ heat_map_server <- function(input, output, session, df_data) {
     heat_map(),
     height = 888
   )
+
+  observeEvent(input$fill, {
+    if (class(df_data()[[input$fill]]) == "numeric") {
+      shinyjs::enable("force_categorical")
+    } else {
+      shinyjs::disable("force_categorical")
+    }
+  })
+}
+
+heat_map_controller <- function(defaults, options, df_data) {
+  renderUI({
+    if (class(df_data[[defaults$fill]]) == "numeric") {
+      categorical_input <- checkboxInput("force_categorical", "Categorical")
+    } else {
+      categorical_input <- shinyjs::disabled(checkboxInput("force_categorical", "Categorical"))
+    }
+
+    label_controller <- div(
+      class = "label-container",
+      checkboxInput("toggle_label", "Toggle", width = "89px"),
+      form_text(right_blank("Angle:")),
+      numericInput("label_angle", NULL, 0, min = 0, max = 360, step = 1, width = "71px"),
+    )
+
+    return(div(
+      tags$b("Select variables"),
+      div_box(
+        class = "heat-map-controller",
+        selectInput("x_axis", "X axis", options, selected = defaults$x),
+        selectInput("y_axis", "Y axis", options, selected = defaults$y),
+        selectInput("fill", "Fill", options, selected = defaults$fill),
+        categorical_input,
+        selectInput("label", "Label", options, selected = defaults$label),
+      ),
+      tags$b("Customise figure"),
+      div_box(
+        class = "heat-map-controller",
+        selectInput("colors", "Color palette", sort(names(color_palettes)), selected = "Spectral"),
+        # TODO: same line
+        tags$b("Label"),
+        label_controller,
+        checkboxInput("toggle_na", "Show NA", value = TRUE),
+        checkboxInput("toggle_border", "Plot border"),
+        font_size_slider("heat_map_font_size"),
+        save_figure_box("save_heat_map")
+      ),
+    ))
+  })
 }
 
 acceptable_default <- list(

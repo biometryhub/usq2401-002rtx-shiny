@@ -9,6 +9,7 @@ source("./theme.R")
 initialize_theme()
 
 ui <- fluidPage(
+  shinyjs::useShinyjs(),
   # external styles
   includeCSS("./www/styles.css"),
 
