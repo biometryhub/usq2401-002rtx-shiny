@@ -1,0 +1,30 @@
+.create-design-tab {
+  display: flex;
+}
+
+.create-design-controller {
+  width: 316px;
+  margin-bottom: 8px;
+}
+
+.label-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 300px;
+  margin-bottom: 15px;
+}
+
+.label-container * {
+  margin: 0;
+}
+
+.spatial-factor-box {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.spatial-factor-box .form-group {
+  margin: 0;
+}

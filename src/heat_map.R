@@ -3,6 +3,7 @@ library(RColorBrewer)
 library(shiny)
 
 source("./utils.R")
+source("./constants.R")
 
 .parameters <- setdiff(names(iris), "Species")
 
@@ -13,23 +14,6 @@ heat_map_tab <- tabPanel("Heat Map", div(
   column(1),
   column(9, plotOutput("heat_map", height = "auto"))
 ))
-
-color_palettes <- c(
-  "Spectral" = "Spectral",
-  "Blue purple" = "BuPu",
-  "Red yellow blue" = "RdYlBu",
-  "Paired" = "Paired",
-  "Purple orange" = "PuOr",
-  "Pastel" = "Pastel1",
-  "Red grey" = "RdGy",
-  "Red blue" = "RdBu",
-  "Brown bluegreen" = "BrBG",
-  "Reds" = "Reds",
-  "Blues" = "Blues",
-  "Greens" = "Greens",
-  "Greys" = "Greys",
-  "Pink green" = "PiYG"
-)
 
 heat_map_server <- function(input, output, session, df_data) {
   heat_map_options <- reactive(names(df_data()))

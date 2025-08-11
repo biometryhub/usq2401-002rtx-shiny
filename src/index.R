@@ -3,6 +3,7 @@ library(shiny)
 source("./components.R")
 source("./upload.R")
 source("./heat_map.R")
+source("./create_design.R")
 source("./summary.R")
 source("./theme.R")
 
@@ -35,6 +36,7 @@ ui <- fluidPage(
     # add tabs here
     heat_map_tab,
     summary_tab,
+    create_design_tab,
   )
 )
 
@@ -54,6 +56,7 @@ server <- function(input, output, session) {
   df_data <- upload_server(input, output, session)
   heat_map_server(input, output, session, df_data)
   summary_server(input, output, session, df_data)
+  create_design_server(input, output, session)
 }
 
 # export app
